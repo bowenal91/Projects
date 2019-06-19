@@ -6,7 +6,7 @@ import math
 molySize = 7
 
 data = np.loadtxt('input.xyz')
-labels = np.loadtxt("labels.txt")
+labels = np.loadtxt("labels2.txt")
 
 output = open("clusters.xyz","w")
 
