@@ -75,4 +75,4 @@ model.fit_generator(
         epochs=50,
         validation_data=test_generator,
         validation_steps=800 // batch_size)
-model.save_weights('first_try.h5')  # always save
+model.save_weights('parameters.h5')
