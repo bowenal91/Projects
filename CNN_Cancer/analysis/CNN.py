@@ -6,7 +6,9 @@ from keras.preprocessing.image import ImageDataGenerator,array_to_img,img_to_arr
 
 def create_model():
     model = Sequential()
-    model.add(Conv2D(32, (3, 3), input_shape=(128, 128,3)))
+    model.add(MaxPooling2D(pool_size=(8,8),input_shape=(1024,1024,3)))
+    #model.add(Conv2D(32, (3, 3), input_shape=(128, 128,3)))
+    model.add(Conv2D(32, (3, 3)))
     model.add(Activation('relu'))
     model.add(MaxPooling2D(pool_size=(2, 2)))
 
@@ -37,7 +39,9 @@ train_dg = ImageDataGenerator(
         rotation_range=0,
         width_shift_range=0.0,
         height_shift_range=0.0,
-        rescale=0./255,
+        rescale=1.0/255,
+        samplewise_center=True,
+        samplewise_std_normalization=True,
         shear_range=0.0,
         zoom_range=0.0,
         horizontal_flip=True,
@@ -48,7 +52,9 @@ test_dg = ImageDataGenerator(
         rotation_range=0,
         width_shift_range=0.0,
         height_shift_range=0.0,
-        rescale=0./255,
+        rescale=1.0/255,
+        samplewise_center=True,
+        samplewise_std_normalization=True,
         shear_range=0.0,
         zoom_range=0.0,
         horizontal_flip=True,
@@ -57,13 +63,13 @@ test_dg = ImageDataGenerator(
 
 train_generator = train_dg.flow_from_directory(
         'train',
-        target_size=(128,128),
+        target_size=(1024,1024),
         batch_size = batch_size,
         class_mode='binary')
 
 test_generator = test_dg.flow_from_directory(
         'test',
-        target_size=(128,128),
+        target_size=(1024,1024),
         batch_size=batch_size,
         class_mode='binary')
 
