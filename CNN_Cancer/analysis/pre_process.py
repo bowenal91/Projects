@@ -31,7 +31,7 @@ def get_threshold_tile(slide,x,y,size,ds,thresh):
 
 slide = openslide.OpenSlide(sys.argv[1])
 ds = 1
-size = (256,256)
+size = (1024,1024)
 slide_size = slide.level_dimensions
 x = slide_size[0][0] - size[0]
 y = slide_size[0][1] - size[1]
@@ -39,6 +39,7 @@ y = slide_size[0][1] - size[1]
 num_samples = 20
 for i in range(num_samples):
     test = get_threshold_tile(slide,x,y,size,ds,175)
+    test = test.convert('L')
     test.save(sys.argv[1]+str(i)+".png")
 #print test
 #plt.imshow(test)
